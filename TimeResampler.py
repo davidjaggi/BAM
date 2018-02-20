@@ -2,8 +2,9 @@ import pandas as pd
 import numpy as np
 
 input_file = "C:/Users/Administrator/Desktop/Data/USDNOK.FXCM.asc"
+ba_ready_file = "C:/Users/Administrator/Desktop/BaData/BA_USDNOK_15min.txt"
 
-df = pd.read_csv(input_file,index_col=0, parse_dates=[[0,1]])
+df = pd.read_csv(input_file,index_col=0, parse_dates=[[0,1]], delimiter=',')
 df.head()
 df_open =  df['Open'].resample('15Min').ohlc()
 df_high =  df['High'].resample('15Min').ohlc()
