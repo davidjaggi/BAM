@@ -1,9 +1,7 @@
 import pandas as pd
 import numpy as np
 
-
-input_file = "C:/Users/Administrator/Desktop/Data/AUDCAD.FXCM.asc"
-ba_ready_file = "C:/Users/Administrator/Desktop/BaData/BA_AUDCAD_15min.txt"
+input_file = "C:/Users/Administrator/Desktop/Data/USDNOK.FXCM.asc"
 
 df = pd.read_csv(input_file,index_col=0, parse_dates=[[0,1]])
 df.head()
