@@ -2,17 +2,17 @@ import pandas as pd
 import numpy as np
 
 
-input_file = "C:/Users/Administrator/Desktop/Data Quote Manager/AUDCAD.FXCM-Minute-Trade.asc"
-ba_ready_file = "C:/Users/Administrator/Desktop/BaData/BA_AUDCAD_15min.txt"
+input_file = "C:/Users/Administrator/Desktop/Data Quote Manager/EURNOK.FXCM-Minute-Trade.asc"
+ba_ready_file = "C:/Users/Administrator/Desktop/BaData/BA_EURNOK_15min.txt"
 
 df = pd.read_csv(input_file,index_col=0, parse_dates=[[0,1]])
 
 
-df_resample = df.resample('15Min').agg({'Open': 'first',
-                                 'High': 'max',
-                                 'Low': 'min',
-                                 'Close': 'last',
-                                        'TotalVolume': 'sum'})
+df_resample = df.resample('15Min', closed='right', label='right').agg({'Open': 'first',
+                                                        'High': 'max',
+                                                        'Low': 'min',
+                                                        'Close': 'last',
+                                                        'TotalVolume': 'sum'})
 
 fh = open(ba_ready_file, 'w')
 fh.write("Date,Time,Open,High,Low,Close,Vol,OI\n")
