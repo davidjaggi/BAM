@@ -21,3 +21,5 @@ fh.write("Date,Time,Open,High,Low,Close,Vol,OI\n")
 for d,o,h,l,c in zip(df_resample.index,df_resample['Open'],df_resample['High'],df_resample['Low'],df_resample['Close'],):
  fh.write("%s,%s,%.5f,%.5f,%.5f,%.5f,%d,%d\n" % (d.strftime('%m/%d/%Y'),d.strftime('%H:%M'),o,h,l,c,0,0))
 fh.close()
+
+asldkjfnödsfnöia
