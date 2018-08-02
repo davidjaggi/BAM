@@ -6,23 +6,46 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>948</width>
-    <height>628</height>
+    <width>1027</width>
+    <height>457</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Bancroft</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <widget class="QTableView" name="tableView">
+   <widget class="QWidget" name="horizontalLayoutWidget">
     <property name="geometry">
      <rect>
-      <x>10</x>
-      <y>10</y>
-      <width>921</width>
-      <height>581</height>
+      <x>190</x>
+      <y>70</y>
+      <width>491</width>
+      <height>241</height>
      </rect>
     </property>
+    <layout class="QHBoxLayout" name="horizontalLayout">
+     <item alignment="Qt::AlignHCenter|Qt::AlignVCenter">
+      <widget class="QTableView" name="tableView"/>
+     </item>
+     <item>
+      <layout class="QVBoxLayout" name="verticalLayout">
+       <item>
+        <widget class="QPushButton" name="pushButton">
+         <property name="text">
+          <string>PushButton</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="pushButton_2">
+         <property name="text">
+          <string>PushButton</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+    </layout>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
@@ -30,7 +53,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>948</width>
+     <width>1027</width>
      <height>26</height>
     </rect>
    </property>
@@ -38,10 +61,22 @@
     <property name="title">
      <string>Load</string>
     </property>
+    <addaction name="actionOpen"/>
    </widget>
    <addaction name="menuLoad"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
+  <action name="actionOpen">
+   <property name="text">
+    <string>Open</string>
+   </property>
+   <property name="statusTip">
+    <string>Open File</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+O</string>
+   </property>
+  </action>
  </widget>
  <resources/>
  <connections/>

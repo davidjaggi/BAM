@@ -28,6 +28,19 @@ class BAM_App(QMainWindow):
         QMainWindow.__init__(self,parent)
         uic.loadUi('C:/Users/David Jaggi/Documents/GitHub/BAM/BAM_App/userInterface.ui', self)
 
+        openFile = QAction("actionOpen", self)
+        openFile.triggered.connect(self.file_open)
+
+    def file_open(self):
+        name = QtGui.QFileDialog.getOpenFileName(self, 'Open File')
+        file = open(name,'r')
+
+        self.editor()
+
+        with file:
+            text = file.read()
+            self.textEdit.setText(text)
+
 
 
 if __name__ == '__main__':
