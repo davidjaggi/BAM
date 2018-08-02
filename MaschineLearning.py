@@ -8,41 +8,34 @@ import matplotlib.pyplot as plt
 import os
 
 # Get FX prices and plot them
-fx_fileName = "C:/Users/David Jaggi/Google Drive/Eiffeltower Capital/BaData/BA_GBPUSD_15min.txt"
-data = pd.read_csv(fx_fileName, index_col = [[0,1]], parse_dates=[[0,1]])
-data = pd.read
-head(data)
-data.plot()
+fx_fileName = "C:/Users/David Jaggi/Google Drive/Eiffeltower Capital/BaData/BA_EURUSD_15min.txt"
+data = pd.read_csv(fx_fileName, delimiter = ',', parse_dates=[[0,1]])
+data.set_index('Date_Time')
+data.head()
+
 
 #Available data
-
 for i in range(len(data.columns)):
     print(data.columns[i])
 
-# Training Data
-datasetId =  'trainingData1'
-instrumentId = 'MQK'
-getData(datasetId, instrumentId)
-fileName = 'historicalData/' + datasetId + '/' + instrumentId + '.csv'
-training_data = pd.read_csv(fileName, engine='python', index_col = 0, parse_dates=True)
+from sklearn.model_selection import train_test_split
 
-# Validation Data
-datasetId =  'trainingData2'
-instrumentId = 'MQK'
-getData(datasetId, instrumentId)
-fileName = 'historicalData/' + datasetId + '/' + instrumentId + '.csv'
-validation_data = pd.read_csv(fileName, engine='python', index_col = 0, parse_dates=True)
+def train_validate_test_split(df, train_percent=.6, validate_percent=.2, seed=None):
+    np.random.seed(seed)
+    perm = np.random.permutation(df.index)
+    m = len(df.index)
+    train_end = int(train_percent * m)
+    validate_end = int(validate_percent * m) + train_end
+    train = df.ix[perm[:train_end]]
+    validate = df.ix[perm[train_end:validate_end]]
+    test = df.ix[perm[validate_end:]]
+    return train, validate, test
 
-# Test Data
-datasetId =  'trainingData3'
-instrumentId = 'MQK'
-getData(datasetId, instrumentId)
-fileName = 'historicalData/' + datasetId + '/' + instrumentId + '.csv'
-out_of_sample_test_data = pd.read_csv(fileName, engine='python', index_col = 0, parse_dates=True)
 
+training_data, validation_data, test_data = train_validate_test_split(data)
 
 def prepareData(data, period):
-    data['Y(Target)'] = data['basis'].rolling(period).mean().shift(-period)
+    data['Y(Target)'] = data['Close'].rolling(period).mean().shift(-period)
     if 'FairValue' in data.columns:
         del data['FairValue']
     data.dropna(inplace=True)
@@ -50,7 +43,7 @@ def prepareData(data, period):
 period = 5
 prepareData(training_data, period)
 prepareData(validation_data, period)
-prepareData(out_of_sample_test_data, period)
+prepareData(test_data, period)
 
 def difference(dataDf, period):
     return dataDf.sub(dataDf.shift(period), fill_value=0)
